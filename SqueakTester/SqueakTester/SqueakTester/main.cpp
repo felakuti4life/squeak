@@ -9,36 +9,119 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
+#include <math.h>
 #include "RtAudio.h"
 #include "RtError.h"
 #include "RoomGen.h"
 #include "SoundSourceGen.h"
 using namespace std;
 
+#define NCHANNELS 2
+#define FORMAT RTAUDIO_FLOAT64
+#define SAMPLE_RATE 44100
+
+
+
+//MARK: MAP AUDIO FILES
+string soundFPath1 = "/Users/Ethan/syncbox/SQUEAK/sound/singles/blender.wav";
+string soundFPath2 = "/Users/Ethan/syncbox/SQUEAK/sound/singles/squeak_1.wav";
+string soundFPath3 = "/Users/Ethan/syncbox/SQUEAK/sound/singles/squeak_2.wav";
+
+string mouseChirpFPath = "/Users/Ethan/syncbox/SQUEAK/sound/singles/squeak_3.wav";
+
+string roomFPath1 = "/Users/Ethan/syncbox/SQUEAK/sound/impulses/chapel.wav";
+string roomFPath2 = "/Users/Ethan/syncbox/SQUEAK/sound/impulses/basement.wav";
+
+//MARK: INITIALIZE GENERATORS
+//sound sources
+SoundSourceGen blender = SoundSourceGen(soundFPath1);
+SoundSourceGen squeak1 = SoundSourceGen(soundFPath2);
+SoundSourceGen squeak2 = SoundSourceGen(soundFPath3);
+SoundSourceGen mouseChirp = SoundSourceGen(mouseChirpFPath);
+//vector<AudioGen*> chain1, chain2, chain3;
+vector<AudioGen*> chain1 = {&blender};
+vector<AudioGen*> chain2 = {&squeak1};
+
+
+//impulses
+RoomGen chapel = RoomGen(roomFPath1, chain1);
+RoomGen basement = RoomGen(roomFPath2, chain2);
+vector<AudioGen*> chain3 = {&squeak2, &chapel};
+RoomGen basement2 = RoomGen(roomFPath2, chain3);
+
+
+int callback(void *outputBuffer, void *inputBuffer, unsigned int numFrames,
+             double streamTime, RtAudioStreamStatus status, void *data) {
+    cerr << "!";
+    // cast!
+    SAMPLE *input = (SAMPLE *) inputBuffer;
+    SAMPLE *output = (SAMPLE *) outputBuffer;
+    //blender.synthesize2(input, output, numFrames);
+    for (int i = 0; i < numFrames; i+= 1.0) {
+        int in = (int) i;
+        output[in*NCHANNELS] = i % 2; //sin(880*3.1415*i/SAMPLE_RATE);
+    }
+    //cout << *output << endl;
+    return 0;
+}
+
 int main(int argc, const char * argv[]) {
-    //MARK: MAP AUDIO FILES
-    string soundFPath1 = "";
-    string soundFPath2 = "";
-    string soundFPath3 = "";
+    RtAudio adac;
+    unsigned int bufferBytes;
+    unsigned int bufferFrames = 512;
     
-    string roomFPath1 = "";
-    string roomFPath2 = "";
-    string roomFPath3 = "";
     
-    //MARK: INITIALIZE GENERATORS
-    //sound sources
-    SoundSourceGen source1 = SoundSourceGen(soundFPath1);
-    SoundSourceGen source2 = SoundSourceGen(soundFPath2);
-    SoundSourceGen source3 = SoundSourceGen(soundFPath3);
-    vector<AudioGen*> chain1, chain2, chain3;
-    chain1 = {&source1};
-    chain2 = {&source2};
-    chain3 = {&source3};
+    //MARK: SET UP RTAUDIO
     
-    //impulses
-    RoomGen room1 = RoomGen(roomFPath1, chain1);
-    RoomGen room2 = RoomGen(roomFPath2, chain2);
-    RoomGen room3 = RoomGen(roomFPath3, chain3);
+    if(adac.getDeviceCount() < 1){
+        cout << "No audio devices found!" << endl;
+        return 1;
+    }
+    
+    adac.showWarnings(true);
+    RtAudio::StreamParameters inputParameters, outputParameters;
+    inputParameters.deviceId = adac.getDefaultInputDevice();
+    inputParameters.nChannels = NCHANNELS;
+    inputParameters.firstChannel = 0;
+    outputParameters.deviceId = adac.getDefaultOutputDevice();
+    outputParameters.nChannels = NCHANNELS;
+    outputParameters.firstChannel = 0;
+    
+    RtAudio::StreamOptions options;
+    
+    try {
+        adac.openStream(&outputParameters, &inputParameters, FORMAT, SAMPLE_RATE, &bufferFrames, &callback, (void *) &bufferBytes, &options);
+    }
+    catch (RtError& e) {
+        cerr << e.getMessage() << endl;
+        exit(1);
+    }
+    
+    bufferBytes = bufferFrames * NCHANNELS * sizeof(SAMPLE);
+    
+    cout << "stream latency: " << adac.getStreamLatency() << " frames" << endl;
+    
+    try {
+        adac.startStream();
+        // get input
+        char input;
+        std::cout << "running... press <enter> to quit (buffer frames: " << bufferFrames << ")" << endl;
+        std::cin.get(input);
+        
+        // stop the stream.
+        adac.stopStream();
+    }
+    catch (RtError& e ) {
+        cerr << e.getMessage() << endl;
+        goto cleanup;
+    }
+    
+    
+    
+cleanup:
+    if(adac.isStreamOpen())
+        adac.closeStream();
     
     return 0;
 }
