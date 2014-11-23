@@ -18,12 +18,13 @@
 using namespace std;
 
 #define NCHANNELS 2
-#define FORMAT RTAUDIO_FLOAT64
+#define FORMAT RTAUDIO_FLOAT32
 #define SAMPLE_RATE 44100
 
 
 
 //MARK: MAP AUDIO FILES
+//TODO: set up relative pathing
 string soundFPath1 = "/Users/Ethan/syncbox/SQUEAK/sound/singles/blender.wav";
 string soundFPath2 = "/Users/Ethan/syncbox/SQUEAK/sound/singles/squeak_1.wav";
 string soundFPath3 = "/Users/Ethan/syncbox/SQUEAK/sound/singles/squeak_2.wav";
@@ -46,22 +47,25 @@ vector<AudioGen*> chain2 = {&squeak1};
 
 //impulses
 RoomGen chapel = RoomGen(roomFPath1, chain1);
+
 RoomGen basement = RoomGen(roomFPath2, chain2);
 vector<AudioGen*> chain3 = {&squeak2, &chapel};
 RoomGen basement2 = RoomGen(roomFPath2, chain3);
 
 
+double g_t = 0;
 int callback(void *outputBuffer, void *inputBuffer, unsigned int numFrames,
              double streamTime, RtAudioStreamStatus status, void *data) {
     cerr << "!";
     // cast!
     SAMPLE *input = (SAMPLE *) inputBuffer;
     SAMPLE *output = (SAMPLE *) outputBuffer;
-    //blender.synthesize2(input, output, numFrames);
-    for (int i = 0; i < numFrames; i+= 1.0) {
-        int in = (int) i;
-        output[in*NCHANNELS] = i % 2; //sin(880*3.1415*i/SAMPLE_RATE);
-    }
+    blender.synthesize2(input, output, numFrames);
+    //for( int i = 0; i < numFrames; i++ )
+    //{
+    //    output[i*2] = output[i*2+1] = sin(3.1415*2*440/44100*g_t);
+    //    g_t++;
+    //}
     //cout << *output << endl;
     return 0;
 }
@@ -71,7 +75,15 @@ int main(int argc, const char * argv[]) {
     unsigned int bufferBytes;
     unsigned int bufferFrames = 512;
     
-    
+    //get mouse chirp, convolve it through the chapel, and feed it back into the mouse chirp
+    SAMPLE* s = blender.getSound();
+    int sSize = blender.AudioGen::getSize();
+    int tSize;
+    SAMPLE* convolvedSound = chapel.getSoundInRoom(s, sSize, &tSize);
+    blender.setSize(tSize);
+    blender.setSound(convolvedSound);
+    mouseChirp.setPlaybackRate(0.8);
+    chapel.prepareConvolvedAudio();
     //MARK: SET UP RTAUDIO
     
     if(adac.getDeviceCount() < 1){
