@@ -60,7 +60,7 @@ int callback(void *outputBuffer, void *inputBuffer, unsigned int numFrames,
     // cast!
     SAMPLE *input = (SAMPLE *) inputBuffer;
     SAMPLE *output = (SAMPLE *) outputBuffer;
-    blender.synthesize2(input, output, numFrames);
+    mouseChirp.synthesize2(input, output, numFrames);
     //for( int i = 0; i < numFrames; i++ )
     //{
     //    output[i*2] = output[i*2+1] = sin(3.1415*2*440/44100*g_t);
@@ -82,7 +82,7 @@ int main(int argc, const char * argv[]) {
     SAMPLE* convolvedSound = chapel.getSoundInRoom(s, sSize, &tSize);
     blender.setSize(tSize);
     blender.setSound(convolvedSound);
-    mouseChirp.setPlaybackRate(0.8);
+    mouseChirp.setPlaybackRate(0.5);
     chapel.prepareConvolvedAudio();
     //MARK: SET UP RTAUDIO
     

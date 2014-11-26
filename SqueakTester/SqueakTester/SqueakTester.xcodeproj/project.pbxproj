@@ -17,6 +17,7 @@
 		AA00612B1A1A90FF0023691A /* RoomGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0060E71A1A90FE0023691A /* RoomGen.cpp */; };
 		AA00612C1A1A90FF0023691A /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0060EA1A1A90FE0023691A /* RtAudio.cpp */; };
 		AA00612D1A1A90FF0023691A /* SoundSourceGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0060ED1A1A90FE0023691A /* SoundSourceGen.cpp */; };
+		AA66BBCE1A21601000C6D442 /* EnGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BBCC1A21601000C6D442 /* EnGen.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +53,8 @@
 		AA0060EC1A1A90FE0023691A /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
 		AA0060ED1A1A90FE0023691A /* SoundSourceGen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundSourceGen.cpp; sourceTree = "<group>"; };
 		AA0060EE1A1A90FE0023691A /* SoundSourceGen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundSourceGen.h; sourceTree = "<group>"; };
+		AA66BBCC1A21601000C6D442 /* EnGen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnGen.cpp; sourceTree = "<group>"; };
+		AA66BBCD1A21601000C6D442 /* EnGen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnGen.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 				AA0060E91A1A90FE0023691A /* rtaudio */,
 				AA0060ED1A1A90FE0023691A /* SoundSourceGen.cpp */,
 				AA0060EE1A1A90FE0023691A /* SoundSourceGen.h */,
+				AA66BBCC1A21601000C6D442 /* EnGen.cpp */,
+				AA66BBCD1A21601000C6D442 /* EnGen.h */,
 			);
 			name = squeakEngine;
 			path = ../../squeakEngine;
@@ -187,6 +192,7 @@
 				AA0061271A1A90FF0023691A /* BackgroundGen.cpp in Sources */,
 				AA0061251A1A90FF0023691A /* AudioFileHandler.cpp in Sources */,
 				AA00612D1A1A90FF0023691A /* SoundSourceGen.cpp in Sources */,
+				AA66BBCE1A21601000C6D442 /* EnGen.cpp in Sources */,
 				AA00612A1A1A90FF0023691A /* README.md in Sources */,
 				AA00612C1A1A90FF0023691A /* RtAudio.cpp in Sources */,
 				AA0060D11A1A8FE70023691A /* main.cpp in Sources */,

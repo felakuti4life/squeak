@@ -22,6 +22,8 @@
 		AA66BBC61A1D615600C6D442 /* MidiFileIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BBB71A1D615600C6D442 /* MidiFileIn.cpp */; };
 		AA66BBC71A1D615600C6D442 /* Stk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BBB91A1D615600C6D442 /* Stk.cpp */; };
 		AA66BBCB1A1D647500C6D442 /* x-vector3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BBCA1A1D647500C6D442 /* x-vector3d.cpp */; };
+		AAB757401A252E8A001985E6 /* Room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB7573E1A252E8A001985E6 /* Room.cpp */; };
+		AAB757431A255399001985E6 /* Thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB757411A255399001985E6 /* Thing.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +70,10 @@
 		AA66BBBA1A1D615600C6D442 /* Stk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stk.h; sourceTree = "<group>"; };
 		AA66BBC91A1D646900C6D442 /* x-vector3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "x-vector3d.h"; path = "../squeakEngine/x-api/x-vector3d.h"; sourceTree = "<group>"; };
 		AA66BBCA1A1D647500C6D442 /* x-vector3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "x-vector3d.cpp"; path = "../squeakEngine/x-api/x-vector3d.cpp"; sourceTree = "<group>"; };
+		AAB7573E1A252E8A001985E6 /* Room.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Room.cpp; sourceTree = "<group>"; };
+		AAB7573F1A252E8A001985E6 /* Room.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Room.h; sourceTree = "<group>"; };
+		AAB757411A255399001985E6 /* Thing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Thing.cpp; sourceTree = "<group>"; };
+		AAB757421A255399001985E6 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,10 @@
 				AA66BB971A1D46F000C6D442 /* main.cpp */,
 				AA66BBC81A1D627600C6D442 /* engine */,
 				AA66BBB11A1D615600C6D442 /* stk */,
+				AAB7573E1A252E8A001985E6 /* Room.cpp */,
+				AAB7573F1A252E8A001985E6 /* Room.h */,
+				AAB757411A255399001985E6 /* Thing.cpp */,
+				AAB757421A255399001985E6 /* Thing.h */,
 			);
 			path = Squeak;
 			sourceTree = "<group>";
@@ -222,6 +232,7 @@
 				AA66BBC61A1D615600C6D442 /* MidiFileIn.cpp in Sources */,
 				AA66BBC41A1D615600C6D442 /* Delay.cpp in Sources */,
 				AA66BBBC1A1D615600C6D442 /* AudioGen.cpp in Sources */,
+				AAB757401A252E8A001985E6 /* Room.cpp in Sources */,
 				AA66BBBF1A1D615600C6D442 /* Convoluter.cpp in Sources */,
 				AA66BBC11A1D615600C6D442 /* RoomGen.cpp in Sources */,
 				AA66BBC51A1D615600C6D442 /* DelayL.cpp in Sources */,
@@ -230,6 +241,7 @@
 				AA66BBC71A1D615600C6D442 /* Stk.cpp in Sources */,
 				AA66BBBB1A1D615600C6D442 /* AudioFileHandler.cpp in Sources */,
 				AA66BBBE1A1D615600C6D442 /* chuck_fft.c in Sources */,
+				AAB757431A255399001985E6 /* Thing.cpp in Sources */,
 				AA66BBC31A1D615600C6D442 /* SoundSourceGen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
