@@ -8,15 +8,15 @@
 
 #include "Thing.h"
 //placeholder names
-vector<string> placeholder_names = {
+vector<string> placeholder_thing_names = {
     "Suspicious dish",
     "Suspicious food",
     "Suspicious thing"
 };
 
 Thing::Thing(){
-    int idx = rand() % placeholder_names.size();
-    name = placeholder_names[idx];
+    int idx = rand() % placeholder_thing_names.size();
+    name = placeholder_thing_names[idx];
 }
 
 Thing::Thing(string name){
