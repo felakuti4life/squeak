@@ -10,10 +10,12 @@
 #include "chuck_fft.h"
 #include "RoomGen.h"
 #include "SoundSourceGen.h"
+
 using namespace std;
 
 //#ifdef __MACOSX_CORE__
 #include <GLUT/glut.h>
+//#include <openglut.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 //#else
@@ -106,6 +108,16 @@ GLuint ge_texture, lynch_texture;
 
 Vector3D cube_rotation = Vector3D();
 
+void RenderString(float x, float y, void *font, const char* string, float r, float g, float b)
+{
+    char *c;
+    
+    glColor3f(r, g, b);
+    glRasterPos2f(x, y);
+    
+    glutBitmapString(font, string);
+}
+//called like this:
 
 
 // window
@@ -249,7 +261,7 @@ int main(int argc, char **argv) {
     glutInit(&argc, argv);
     // init gfx
     initGfx();
-    
+    RenderString(0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24, "Hello", 1.0f, 0.0f, 0.0f);
     ge_texture = LoadTexture("ge.bmp");
     
     lynch_texture = LoadTexture("lynch.bmp");

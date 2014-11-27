@@ -24,6 +24,7 @@
 		AA66BBCB1A1D647500C6D442 /* x-vector3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BBCA1A1D647500C6D442 /* x-vector3d.cpp */; };
 		AAB757401A252E8A001985E6 /* Room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB7573E1A252E8A001985E6 /* Room.cpp */; };
 		AAB757431A255399001985E6 /* Thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB757411A255399001985E6 /* Thing.cpp */; };
+		AAB757471A26B9F5001985E6 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB757451A26B9F5001985E6 /* Map.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +76,8 @@
 		AAB757411A255399001985E6 /* Thing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Thing.cpp; sourceTree = "<group>"; };
 		AAB757421A255399001985E6 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
 		AAB757441A25644B001985E6 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		AAB757451A26B9F5001985E6 /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
+		AAB757461A26B9F5001985E6 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				AAB757411A255399001985E6 /* Thing.cpp */,
 				AAB757421A255399001985E6 /* Thing.h */,
 				AAB757441A25644B001985E6 /* Model.h */,
+				AAB757451A26B9F5001985E6 /* Map.cpp */,
+				AAB757461A26B9F5001985E6 /* Map.h */,
 			);
 			path = Squeak;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				AA66BBC51A1D615600C6D442 /* DelayL.cpp in Sources */,
 				AA66BBC01A1D615600C6D442 /* README.md in Sources */,
 				AA66BB981A1D46F000C6D442 /* main.cpp in Sources */,
+				AAB757471A26B9F5001985E6 /* Map.cpp in Sources */,
 				AA66BBC71A1D615600C6D442 /* Stk.cpp in Sources */,
 				AA66BBBB1A1D615600C6D442 /* AudioFileHandler.cpp in Sources */,
 				AA66BBBE1A1D615600C6D442 /* chuck_fft.c in Sources */,
@@ -287,6 +293,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-lsndfile",
+					"-lglut",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -321,6 +331,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-lsndfile",
+					"-lglut",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
