@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
+#include <sstream>
 using namespace std;
 
 
@@ -26,14 +27,22 @@ class TextTicker{
     vector<string> log;
     GLfloat x; //left x
     GLfloat y; //bottom y
+    int numLines;
+    GLint fontHeightInPixels;
+    GLint bottom_offset = 10;
+    GLint right_offset = 10;
+    GLint left_offset = 10;
+    GLfloat text_spacing = 1.5;
+    GLfloat color_delta;
+    void *font;
 public:
-    TextTicker(GLint _x, GLint _y);
+    TextTicker(GLint _x, GLint _y, void *font);
     void updateLog(string toAdd);
     void drawLog();
     void clearLog();
     void reshape(GLint new_x, GLint new_y);
 private:
-    void RenderString(float x, float y, void *font, string str, GLfloat r, GLfloat g, GLfloat b);
+    void RenderString(float x, float &y, void *font, string str, GLfloat r, GLfloat g, GLfloat b);
 };
 
 #endif

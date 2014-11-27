@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Squeak/TextTicker.cpp"
-            timestampString = "438746553.839834"
+            timestampString = "438764747.677146"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "TextTicker::RenderString(GLfloat x, GLfloat y, void *font, string str, GLfloat r, GLfloat g, GLfloat b)"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "TextTicker::RenderString(GLfloat draw_x, GLfloat &amp;draw_y, void *font, string str, GLfloat r, GLfloat g, GLfloat b)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,6 +31,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Squeak/TextTicker.cpp"
+            timestampString = "438764747.677146"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "TextTicker::RenderString(GLfloat draw_x, GLfloat &amp;draw_y, void *font, string str, GLfloat r, GLfloat g, GLfloat b)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

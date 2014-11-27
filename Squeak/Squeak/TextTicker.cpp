@@ -8,19 +8,40 @@
 
 #include "TextTicker.h"
 
-TextTicker::TextTicker(GLint _x, GLint _y){
+TextTicker::TextTicker(GLint _x, GLint _y, void *_font){
     x = _x;
     y = _y;
+    font = _font;
+    fontHeightInPixels = glutBitmapHeight(font);
+    numLines = y / fontHeightInPixels;
+    color_delta = 1.0/(float)numLines;
 }
 
-void TextTicker::RenderString(GLfloat x, GLfloat y, void *font, string str, GLfloat r, GLfloat g, GLfloat b)
+void TextTicker::RenderString(GLfloat draw_x, GLfloat &draw_y, void *font, string str, GLfloat r, GLfloat g, GLfloat b)
 {
     const unsigned char *c = (const unsigned char*)str.c_str();
-    
+    ostringstream os;
     glColor3f(r, g, b);
-    glRasterPos2f(x, y);
     
-    glutBitmapString(font, c);
+    //do we need to leave room for text wrapping?
+    if(glutBitmapLength(font, c) > x){
+        int timesLonger = int(glutBitmapLength(font, c)/x);
+        draw_y -= fontHeightInPixels * timesLonger;
+    }
+    //set the position of the start of the string
+    glRasterPos2f(draw_x, draw_y);
+    float x_pos = 0.0;
+    for(int i = 0; i < str.length(); i++){
+        x_pos += glutBitmapWidth(font, c[i]);
+        os << c[i];
+        if(x_pos > x - (left_offset + right_offset)){
+            os << '\n';
+            x_pos = 0.0;
+        }
+    }
+    
+    //finally, print the damn thing
+    glutBitmapString(font, (const unsigned char *)os.str().c_str());
 }
 
 void TextTicker::updateLog(string toAdd){
@@ -30,17 +51,22 @@ void TextTicker::updateLog(string toAdd){
 void TextTicker::reshape(GLint new_x, GLint new_y){
     x = new_x;
     y = new_y;
+    numLines = y/fontHeightInPixels;
+    color_delta = 1.5/(float)numLines;
 }
 
 void TextTicker::drawLog(){
-    GLfloat draw_x = 0.0;
-    GLfloat draw_y = y - 10;
+    GLfloat draw_x = left_offset;
+    GLfloat draw_y = y - bottom_offset;
+    GLfloat r = 1.0, g = 1.0, b = 1.0;
     
     for(int i = log.size()-1; i >= 0; i--){
-        std::printf("the x val is: %f and the y val is: %f \n", draw_x, draw_y);
-        RenderString(draw_x, draw_y, GLUT_BITMAP_TIMES_ROMAN_24, log[i], 1.0, 1.0, 1.0);
+        
+        //std::printf("the x val is: %f and the y val is: %f \n", draw_x, draw_y);
+        RenderString(draw_x, draw_y, font, log[i], r, g, b);
         //RenderString(100.0, 100.0, GLUT_BITMAP_TIMES_ROMAN_24, log[i], 1.0, 1.0, 1.0);
-        draw_y -= 24;
+        draw_y -= fontHeightInPixels * text_spacing;
+        r -= color_delta; g -= color_delta; b -= color_delta;
     }
 }
 

@@ -244,11 +244,43 @@ int main(int argc, char **argv) {
     initGfx();
     
     //initialize the log
-    g_log = new TextTicker(g_width, g_height);
+    g_log = new TextTicker(g_width, g_height, GLUT_BITMAP_9_BY_15);
     
     //add something to the log
     g_log->updateLog("Hello, Squeak!");
     g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeeddoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobeedoobee");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
+
     
     // let RtAudio print messages to stderr.
     audio.showWarnings(true);
