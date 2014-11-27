@@ -5,17 +5,24 @@
 //  Created by Ethan Geller on 11/19/14.
 //  Copyright (c) 2014 Ethan Geller. All rights reserved.
 //
+
+
+//#include <GL/freeglut.h>
+
 #include "x-vector3d.h"
 #include "RtAudio.h"
 #include "chuck_fft.h"
 #include "RoomGen.h"
 #include "SoundSourceGen.h"
+#include "TextTicker.h"
 using namespace std;
 
+
+
 //#ifdef __MACOSX_CORE__
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
+//#include <GLUT/glut.h>
+//#include <OpenGL/gl.h>
+//#include <OpenGL/glu.h>
 //#else
 /*
 #include <GL/gl.h>
@@ -85,26 +92,12 @@ void draw_osc(GLfloat z, GLfloat zinc);
 #define NCHANNELS 1
 #define PIE 3.14159265358979
 
-enum movement {
-    IDLE, FORWARD, BACKWARD, LEFT, RIGHT
-};
-movement direction = IDLE;
-float g_step = 0.05;
-float ge_size, lynch_size;
-float victory_score = 200;
-float victory_threshold = 0.0008;
 // width and height
-int g_width = 1024;
-int g_height = 720;
+GLint g_width = 1024;
+GLint g_height = 720;
 
-long g_last_width = g_width;
-long g_last_height = g_height;
-
-GLuint ge_texture, lynch_texture;
-
-Vector3D cube_rotation = Vector3D();
-
-
+GLint g_last_width = g_width;
+GLint g_last_height = g_height;
 
 // window
 SAMPLE *g_window = NULL;
@@ -123,6 +116,8 @@ long g_bufferSize;
 // fft buffer
 SAMPLE *g_fftBuf = NULL;
 bool g_draw_dB = false;
+
+TextTicker* g_log;
 
 
 float score;
@@ -186,7 +181,7 @@ GLuint LoadTexture(const char *filename) {
 // desc: prints usage for Squeak
 //-----------------------------------------------------------------------------
 void usage() {
-    cout << "Ethan Geller and Andrew Forsyth Presents\n"
+    cout << "Ethan Geller and Andrew Forsyth Present\n"
     << "---------------------\n\n"
     << "SQUEAK\n"
     << "===========\n\n"
@@ -248,9 +243,12 @@ int main(int argc, char **argv) {
     // init gfx
     initGfx();
     
-    ge_texture = LoadTexture("ge.bmp");
+    //initialize the log
+    g_log = new TextTicker(g_width, g_height);
     
-    lynch_texture = LoadTexture("lynch.bmp");
+    //add something to the log
+    g_log->updateLog("Hello, Squeak!");
+    g_log->updateLog("Your mission will be difficult, but I know you can succeed");
     
     // let RtAudio print messages to stderr.
     audio.showWarnings(true);
@@ -346,7 +344,7 @@ void initGfx() {
     glutMouseFunc(mouseFunc);
     
     // set clear color
-    glClearColor(1, 0.1, 0.1, 1);
+    glClearColor(0.0, 0.0, 0.0, 1);
     // enable color material
     glEnable(GL_COLOR_MATERIAL);
     // enable depth test
@@ -364,20 +362,24 @@ void reshapeFunc(GLsizei w, GLsizei h) {
     // save the new window size
     g_width = w;
     g_height = h;
-    // map the view port to the client area
-    glViewport(0, 0, w, h);
+    
+    //update the log on the height and width of our window
+    g_log->reshape(g_width, g_height);
+
     // set the matrix mode to project
     glMatrixMode(GL_PROJECTION);
     // load the identity matrix
     glLoadIdentity();
     // create the viewing frustum
-    gluPerspective(45.0, (GLfloat) w / (GLfloat) h, 1.0, 300.0);
+    gluOrtho2D(0, w, h, 0);
     // set the matrix mode to modelview
     glMatrixMode(GL_MODELVIEW);
     // load the identity matrix
     glLoadIdentity();
+    // map the view port to the client area
+    glViewport(0, 0, w, h);
     // position the view point
-    gluLookAt(0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+    //gluLookAt(0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 }
 
 
@@ -392,46 +394,6 @@ void keyboardFunc(unsigned char key, int x, int y) {
             break;
         case 'q':
             exit(1);
-            break;
-            
-        case 'w':
-            direction = FORWARD;
-            break;
-            
-        case 's':
-            direction = BACKWARD;
-            break;
-            
-        case 'a':
-            direction = LEFT;
-            break;
-            
-        case 'd':
-            direction = RIGHT;
-            break;
-            
-        case 'p':
-            ge_size += 1.0f;
-            break;
-            
-        case 'l':
-            ge_size -= 1.0f;
-            break;
-            
-        case 'o':
-            lynch_size += 1.0f;
-            break;
-            
-        case 'k':
-            lynch_size -= 1.0f;
-            break;
-            
-        case 'i':
-            g_vertical_stretch += 2.0f;
-            break;
-            
-        case 'j':
-            g_vertical_stretch -= 2.0f;
             break;
             
         case 'f': {
@@ -461,29 +423,8 @@ void keyboardFunc(unsigned char key, int x, int y) {
 // Desc: handles mouse stuff
 //-----------------------------------------------------------------------------
 void mouseFunc(int button, int state, int x, int y) {
-    if (button == GLUT_LEFT_BUTTON) {
-        // when left mouse button is down
-        if (state == GLUT_DOWN) {
-            cube_rotation.y = y / 60 - g_height / 60;
-            cout << cube_rotation.x << "y: " << cube_rotation.y;
-        }
-        else {
-            cube_rotation.x = 0.0f;
-            cube_rotation.y = 0.0f;
-        }
-    }
-    else if (button == GLUT_RIGHT_BUTTON) {
-        // when right mouse button down
-        if (state == GLUT_DOWN) {
-            
-        }
-        else {
-        }
-    }
-    else {
-    }
-    
-    glutPostRedisplay();
+
+    //nothing here for now
 }
 
 
@@ -502,64 +443,11 @@ void idleFunc() {
 // Desc: callback function invoked to draw the client area
 //-----------------------------------------------------------------------------
 void displayFunc() {
-    if (g_vertical_stretch < 0) g_vertical_stretch = 0;
-    else if (g_vertical_stretch > 20) g_vertical_stretch = 20;
-    
-    
-    // local state
-    static GLfloat zrot = 0.0f, c = 0.0f;
-    
     // clear the color and depth buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    actionRotate();
-    actionMove();
     
-    //glRotatef(45,1.0f,0.0f,0.0f);
-    //glRotatef(45,0.0f,1.0f,0.0f);
-    // line width
-    glLineWidth(4.0);
-    // define a starting point
-    GLfloat z = -5;
-    // compute increment
-    GLfloat zinc = ::fabs(z * 2 / g_bufferSize);
+    g_log->drawLog();
     
-    // color
-    glColor3f(.5, .5, 1);
-    // apply window to buf
-    apply_window(g_buffer, g_window, g_windowSize);
-    draw_osc(z, zinc);
-    
-    // copy into the fft buf
-    memcpy(g_fftBuf, g_buffer, sizeof(SAMPLE) * g_bufferSize);
-    
-    // take forward FFT (time domain signal -> frequency domain signal)
-    rfft(g_fftBuf, g_windowSize / 2, FFT_FORWARD);
-    // cast the result to a buffer of complex values (re,im)
-    complex *cbuf = (complex *) g_fftBuf;
-    
-    // define a starting point
-    z = -5;
-    // compute increment
-    zinc = (GLfloat) ::fabs(z * 2 / (g_windowSize / 2));
-    float ge_agitator = cmp_abs(cbuf[24]);
-    float zGeMotion = 1.0f * ge_agitator * g_vertical_stretch * 360.0f;
-    float lynch_agitator = cmp_abs(cbuf[32]);
-    float zLynchMotion = 1.0f * lynch_agitator * g_vertical_stretch * 360.0f;
-    float top_agitator = cmp_abs(cbuf[16]);
-    float yTopMotion = 1.0f * top_agitator * g_vertical_stretch * 360.0f;
-    float bottom_agitator = cmp_abs(cbuf[8]);
-    float yBottomMotion = 1.0f * bottom_agitator * g_vertical_stretch * 360.0f;
-    
-    if (ge_agitator > victory_threshold &&
-        lynch_agitator > victory_threshold &&
-        top_agitator > victory_threshold &&
-        bottom_agitator > victory_threshold)
-        score += 10;
-    else if (score > 0) score -= 1;
-    // save transformation state
-    draw_fft(z, zinc, cbuf);
-    drawCube(zGeMotion, zLynchMotion, yTopMotion, yBottomMotion);
-    glClearColor(1.0f - (score / victory_score), 0.1, 0.1, 1);
     glFlush();
     
     glutSwapBuffers();
@@ -585,123 +473,4 @@ void draw_osc(GLfloat z, GLfloat zinc) {
     glPopMatrix();
 }
 
-void draw_fft(GLfloat z, GLfloat zinc, complex *cbuf) {
-    z = -2;
-    float gradient = score / victory_score;
-    glPushMatrix();
-    // translate
-    glTranslatef(0, -2, 0);
-    // color
-    glColor3f(0, 1 - gradient, gradient);
-    // start primitive
-    glBegin(GL_LINE_STRIP);
-    // loop over buffer to draw spectrum
-    for (int i = 0; i < g_windowSize; i++) {
-        // plot the magnitude,
-        // with scaling, and also "compression" via pow(...)
-        glVertex3f(2 * sin(z), (GLfloat) (2 * cos(z) + (1.5 + (10 * pow(cmp_abs(cbuf[i]), .5)))), z * 3);
-        // increment x
-        z += zinc;
-    }
-    // end primitive
-    glEnd();
-    // restore transformations
-    glPopMatrix();
-}
 
-void drawCube(float zGeMotion, float zLynchMotion, float yTopMotion, float yBottomMotion) {
-    
-    glBindTexture(GL_TEXTURE_2D, ge_texture);
-    glBegin(GL_QUADS);
-    
-    // Front Face (ge face)
-    // Bottom Left
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-1.0f - ge_size, -1.0f - ge_size, 1.0f - zGeMotion);
-    // Bottom Right
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(1.0f + ge_size, -1.0f - ge_size, 1.0f - zGeMotion);
-    // Top Right
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(1.0f + ge_size, 1.0f + ge_size, 1.0f - zGeMotion);
-    // Top Left
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(-1.0f - ge_size, 1.0f + ge_size, 1.0f - zGeMotion);
-    glEnd();
-    
-    glBindTexture(GL_TEXTURE_2D, lynch_texture);
-    glBegin(GL_QUADS);
-    
-    // Back Face (lynch face)
-    // Bottom Right
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(-1.0f - lynch_size, -1.0f - lynch_size, -1.0f + zLynchMotion);
-    // Top Right
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(-1.0f - lynch_size, 1.0f + lynch_size, -1.0f + zLynchMotion);
-    // Top Left
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(1.0f + lynch_size, 1.0f + lynch_size, -1.0f + zLynchMotion);
-    // Bottom Left
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(1.0f + lynch_size, -1.0f - lynch_size, -1.0f + zLynchMotion);
-    glEnd();
-    
-    glBegin(GL_QUADS);
-    // Top Face
-    // Top Left
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(-1.0f, 1.0f + yTopMotion, -1.0f);
-    // Bottom Left
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-1.0f, 1.0f + yTopMotion, 1.0f);
-    // Bottom Right
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(1.0f, 1.0f + yTopMotion, 1.0f);
-    // Top Right
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(1.0f, 1.0f + yTopMotion, -1.0f);
-    glEnd();
-    
-    glBegin(GL_QUADS);
-    // Bottom Face
-    // Top Right
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f - yBottomMotion, -1.0f);
-    // Top Left
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(1.0f, -1.0f - yBottomMotion, -1.0f);
-    // Bottom Left
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(1.0f, -1.0f - yBottomMotion, 1.0f);
-    // Bottom Right
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(-1.0f, -1.0f - yBottomMotion, 1.0f);
-    glEnd();
-}
-
-void actionRotate() {
-    glRotatef(cube_rotation.x, 1.0f, 0.0f, 0.0f);
-    glRotatef(cube_rotation.y, 0.0f, 1.0f, 0.0f);
-    glRotatef(cube_rotation.z, 0.0f, 0.0f, 1.0f);
-}
-
-void actionMove() {
-    switch (direction) {
-        case IDLE:
-            break;
-        case FORWARD:
-            glTranslatef(0, 0, g_step);
-            break;
-        case BACKWARD:
-            glTranslatef(0, 0, 0 - g_step);
-        case LEFT:
-            glTranslatef((0 - g_step), 0, 0);
-            break;
-        case RIGHT:
-            glTranslatef(g_step, 0, 0);
-        default:
-            break;
-    }
-    direction = IDLE;
-}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49053CB31A26BDAE00449F78 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49053CB21A26BDAE00449F78 /* OpenGL.framework */; };
+		49DA2FAD1A2161DD009D402F /* TextTicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49DA2FAC1A2161DD009D402F /* TextTicker.cpp */; };
 		AA66BB981A1D46F000C6D442 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BB971A1D46F000C6D442 /* main.cpp */; };
 		AA66BBBB1A1D615600C6D442 /* AudioFileHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BB9E1A1D615600C6D442 /* AudioFileHandler.cpp */; };
 		AA66BBBC1A1D615600C6D442 /* AudioGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA66BBA01A1D615600C6D442 /* AudioGen.cpp */; };
@@ -37,6 +39,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		49053CB21A26BDAE00449F78 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		49DA2FAB1A21618B009D402F /* TextTicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextTicker.h; sourceTree = "<group>"; };
+		49DA2FAC1A2161DD009D402F /* TextTicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextTicker.cpp; sourceTree = "<group>"; };
 		AA66BB941A1D46F000C6D442 /* Squeak */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Squeak; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA66BB971A1D46F000C6D442 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AA66BB9E1A1D615600C6D442 /* AudioFileHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioFileHandler.cpp; path = ../../squeakEngine/AudioFileHandler.cpp; sourceTree = "<group>"; };
@@ -75,15 +80,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49053CB31A26BDAE00449F78 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49DA2FAA1A216153009D402F /* view */ = {
+			isa = PBXGroup;
+			children = (
+				49DA2FAB1A21618B009D402F /* TextTicker.h */,
+				49DA2FAC1A2161DD009D402F /* TextTicker.cpp */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		AA66BB8B1A1D46F000C6D442 = {
 			isa = PBXGroup;
 			children = (
+				49053CB21A26BDAE00449F78 /* OpenGL.framework */,
 				AA66BBCA1A1D647500C6D442 /* x-vector3d.cpp */,
 				AA66BBC91A1D646900C6D442 /* x-vector3d.h */,
 				AA66BB961A1D46F000C6D442 /* Squeak */,
@@ -102,6 +118,7 @@
 		AA66BB961A1D46F000C6D442 /* Squeak */ = {
 			isa = PBXGroup;
 			children = (
+				49DA2FAA1A216153009D402F /* view */,
 				AA66BB971A1D46F000C6D442 /* main.cpp */,
 				AA66BBC81A1D627600C6D442 /* engine */,
 				AA66BBB11A1D615600C6D442 /* stk */,
@@ -222,6 +239,7 @@
 				AA66BBC61A1D615600C6D442 /* MidiFileIn.cpp in Sources */,
 				AA66BBC41A1D615600C6D442 /* Delay.cpp in Sources */,
 				AA66BBBC1A1D615600C6D442 /* AudioGen.cpp in Sources */,
+				49DA2FAD1A2161DD009D402F /* TextTicker.cpp in Sources */,
 				AA66BBBF1A1D615600C6D442 /* Convoluter.cpp in Sources */,
 				AA66BBC11A1D615600C6D442 /* RoomGen.cpp in Sources */,
 				AA66BBC51A1D615600C6D442 /* DelayL.cpp in Sources */,
@@ -314,12 +332,16 @@
 		AA66BB9C1A1D46F000C6D442 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/opt/X11/include,
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-D",
@@ -338,11 +360,8 @@
 					"-lstdc++",
 					"-lm",
 					"-framework",
-					OpenGL,
-					"-framework",
-					GLUT,
-					"-framework",
 					AppKit,
+					"-lGLUT",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -351,12 +370,16 @@
 		AA66BB9D1A1D46F000C6D442 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/opt/X11/include,
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-D",
@@ -375,11 +398,8 @@
 					"-lstdc++",
 					"-lm",
 					"-framework",
-					OpenGL,
-					"-framework",
-					GLUT,
-					"-framework",
 					AppKit,
+					"-lGLUT",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
