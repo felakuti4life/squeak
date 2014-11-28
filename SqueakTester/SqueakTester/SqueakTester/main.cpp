@@ -44,29 +44,22 @@ SoundSourceGen mouseChirp = SoundSourceGen(mouseChirpFPath);
 vector<AudioGen*> chain1 = {&blender};
 vector<AudioGen*> chain2 = {&squeak1};
 
-
 //impulses
 RoomGen chapel = RoomGen(roomFPath1, chain1);
-
 RoomGen basement = RoomGen(roomFPath2, chain2);
 vector<AudioGen*> chain3 = {&squeak2, &chapel};
 RoomGen basement2 = RoomGen(roomFPath2, chain3);
 
 
 double g_t = 0;
+//MARK: callback
 int callback(void *outputBuffer, void *inputBuffer, unsigned int numFrames,
              double streamTime, RtAudioStreamStatus status, void *data) {
     cerr << "!";
     // cast!
     SAMPLE *input = (SAMPLE *) inputBuffer;
     SAMPLE *output = (SAMPLE *) outputBuffer;
-    mouseChirp.synthesize2(input, output, numFrames);
-    //for( int i = 0; i < numFrames; i++ )
-    //{
-    //    output[i*2] = output[i*2+1] = sin(3.1415*2*440/44100*g_t);
-    //    g_t++;
-    //}
-    //cout << *output << endl;
+    blender.synthesize2(input, output, numFrames);
     return 0;
 }
 
@@ -77,12 +70,15 @@ int main(int argc, const char * argv[]) {
     
     //get mouse chirp, convolve it through the chapel, and feed it back into the mouse chirp
     SAMPLE* s = blender.getSound();
-    int sSize = blender.AudioGen::getSize();
+    int sSize = blender.getSize();
     int tSize;
     SAMPLE* convolvedSound = chapel.getSoundInRoom(s, sSize, &tSize);
+    cout << "tSize: " << tSize << endl;
     blender.setSize(tSize);
     blender.setSound(convolvedSound);
+    blender.setPlaybackRate(1.0);
     mouseChirp.setPlaybackRate(0.5);
+    cout << "blender Size:" << blender.getSize() << endl;
     chapel.prepareConvolvedAudio();
     //MARK: SET UP RTAUDIO
     

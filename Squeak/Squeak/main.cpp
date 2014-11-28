@@ -10,6 +10,7 @@
 #include "chuck_fft.h"
 #include "RoomGen.h"
 #include "SoundSourceGen.h"
+#include "Map.h"
 
 using namespace std;
 
@@ -115,7 +116,7 @@ void RenderString(float x, float y, void *font, const char* string, float r, flo
     glColor3f(r, g, b);
     glRasterPos2f(x, y);
     
-    glutBitmapString(font, string);
+    //glutBitmapString(font, string);
 }
 //called like this:
 
@@ -261,10 +262,13 @@ int main(int argc, char **argv) {
     glutInit(&argc, argv);
     // init gfx
     initGfx();
+    //MARK: gui tests
     RenderString(0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24, "Hello", 1.0f, 0.0f, 0.0f);
     ge_texture = LoadTexture("ge.bmp");
-    
     lynch_texture = LoadTexture("lynch.bmp");
+    
+    //MARK: map test
+    Map theMap = Map();
     
     // let RtAudio print messages to stderr.
     audio.showWarnings(true);

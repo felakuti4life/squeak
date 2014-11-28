@@ -28,7 +28,6 @@ public:
     int getWidth();
     int getHeight();
     
-    //fill rooms with things
     void fillRoomsWithThings();
     
     

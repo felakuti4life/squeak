@@ -22,7 +22,7 @@ int maximumThingsInRoom = 4;
 //Here are the things you can put in rooms:
 //first argument: name, second argument: file path to audio source
 vector<Thing> allTheThings = {
-    Thing("", ""),
+    Thing("Rusty Blender", "/Users/Ethan/syncbox/SQUEAK/sound/singles/blender.wav"),
     Thing("", ""),
     Thing("", ""),
     Thing("", ""),

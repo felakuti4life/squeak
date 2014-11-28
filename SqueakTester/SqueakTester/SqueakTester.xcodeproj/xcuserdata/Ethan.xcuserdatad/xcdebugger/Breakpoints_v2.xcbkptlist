@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SqueakTester/main.cpp"
-            timestampString = "438392484.684642"
+            timestampString = "438842536.347173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50">
+            startingLineNumber = "48"
+            endingLineNumber = "48">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -88,12 +88,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../squeakEngine/Convoluter.cpp"
-            timestampString = "438151777.16481"
+            timestampString = "438843864.522937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "Convoluter::convolveSteroSourceWithStereoSpace(float *source, int sSize, float *response, int rSize)"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "Convoluter::convolveSteroSourceWithStereoSpace(float * source, int sSize, float * response, int rSize)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -111,22 +111,6 @@
             endingLineNumber = "62"
             landmarkName = "RoomGen::synthesize2(float *input, float *output, int numframes)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SqueakTester/main.cpp"
-            timestampString = "438392484.684642"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "main(int argc, const char * argv[])"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
