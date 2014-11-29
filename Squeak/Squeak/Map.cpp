@@ -11,12 +11,17 @@
 #include <math.h>
 
 //MARK: some settings
-
+//random seed
+int threshold = 1622650073;
 //whether we are filling the mansion with random, possibly redundant rooms
 bool maniacMansion = false;
 //Are we testing the map?
 bool mapDebug = true;
 
+bool fiftyFifty(){
+    int r = rand();
+    return r % threshold < threshold/2;
+}
 
 //MARK: map generation test!
 void Map::testMap(){
@@ -84,18 +89,19 @@ Map::Map(){
         table.push_back(rooms);
     }
     //raster style!
-    for (int i = 0; i < allTheRooms.size() - 2; i++) {
+    for (int i = 0; i < allTheRooms.size() - 1; i++) {
         //make sure there is not a room here
         if (table[xPos][yPos].getName() == nullRoomName) {
             if (maniacMansion)
                 table[xPos][yPos] = getRandomRoom();
             else
                 table[xPos][yPos] = allTheRooms[i];
-            if (rand() % 2) xPos++;
+            
+            if (fiftyFifty()) xPos++;
             else yPos++;
         }
         else {
-            if (rand()%2) xPos -= 2;
+            if (fiftyFifty()) xPos -= 2;
             else yPos -=2;
         }
         //realign xPos and yPos in case they are out of bounds
@@ -167,3 +173,9 @@ void Map::setNeighbors(){
             }
         
 }
+
+Room Map::getRoom(int x, int y){return table[x][y];}
+Room* Map::getRoomAddress(int x, int y){return &table[x][y];}
+
+int Map::getWidth(){return table.size();}
+int Map::getHeight(){return table.size();}

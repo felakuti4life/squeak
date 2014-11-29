@@ -224,17 +224,11 @@ void usage() {
 double g_t = 0;
 int callback(void *outputBuffer, void *inputBuffer, unsigned int numFrames,
              double streamTime, RtAudioStreamStatus status, void *data) {
-    cerr << "!";
-    // cast!
+
+
     SAMPLE *input = (SAMPLE *) inputBuffer;
     SAMPLE *output = (SAMPLE *) outputBuffer;
     chapel.synthesize2(input, output, numFrames);
-    //for( int i = 0; i < numFrames; i++ )
-    //{
-    //    output[i*2] = output[i*2+1] = sin(3.1415*2*440/44100*g_t);
-    //    g_t++;
-    //}
-    //cout << *output << endl;
     return 0;
 }
 

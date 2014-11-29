@@ -24,7 +24,8 @@ public:
     
     //getter
     Room getRoom(int x, int y);
-    Room getRoom(Room* r);
+    Room* getRoomAddress(int x, int y);
+    
     int getWidth();
     int getHeight();
     

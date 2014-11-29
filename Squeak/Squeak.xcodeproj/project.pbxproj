@@ -25,6 +25,7 @@
 		AAB757401A252E8A001985E6 /* Room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB7573E1A252E8A001985E6 /* Room.cpp */; };
 		AAB757431A255399001985E6 /* Thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB757411A255399001985E6 /* Thing.cpp */; };
 		AAB757471A26B9F5001985E6 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB757451A26B9F5001985E6 /* Map.cpp */; };
+		AAB7574A1A296F9D001985E6 /* Tape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB757481A296F9D001985E6 /* Tape.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +79,8 @@
 		AAB757441A25644B001985E6 /* Model.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = Model.h; sourceTree = "<group>"; };
 		AAB757451A26B9F5001985E6 /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
 		AAB757461A26B9F5001985E6 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		AAB757481A296F9D001985E6 /* Tape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tape.cpp; sourceTree = "<group>"; };
+		AAB757491A296F9D001985E6 /* Tape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tape.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				AAB757441A25644B001985E6 /* Model.h */,
 				AAB757451A26B9F5001985E6 /* Map.cpp */,
 				AAB757461A26B9F5001985E6 /* Map.h */,
+				AAB757481A296F9D001985E6 /* Tape.cpp */,
+				AAB757491A296F9D001985E6 /* Tape.h */,
 			);
 			path = Squeak;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				AA66BBC11A1D615600C6D442 /* RoomGen.cpp in Sources */,
 				AA66BBC51A1D615600C6D442 /* DelayL.cpp in Sources */,
 				AA66BBC01A1D615600C6D442 /* README.md in Sources */,
+				AAB7574A1A296F9D001985E6 /* Tape.cpp in Sources */,
 				AA66BB981A1D46F000C6D442 /* main.cpp in Sources */,
 				AAB757471A26B9F5001985E6 /* Map.cpp in Sources */,
 				AA66BBC71A1D615600C6D442 /* Stk.cpp in Sources */,
