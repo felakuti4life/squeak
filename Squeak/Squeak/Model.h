@@ -23,21 +23,21 @@ int maximumThingsInRoom = 4;
 //first argument: name, second argument: file path to audio source
 vector<Thing> allTheThings = {
     Thing("Rusty Blender", "/Users/Ethan/syncbox/SQUEAK/sound/singles/blender.wav"),
-    Thing("", ""),
-    Thing("", ""),
-    Thing("", ""),
-    Thing("", "")
+    Thing("Scary Thing 2", "scarything_fpath"),
+    Thing("thing 3", "thing_fpath"),
+    Thing("thing 4", "thing_fpath"),
+    Thing("thing 5", "thing_fpath")
 };
 
 //Here are the rooms!:
 //first argument: name, second argument: file path to audio source
 vector<Room> allTheRooms = {
-    Room("", ""),
-    Room("", ""),
-    Room("", ""),
-    Room("", ""),
-    Room("", ""),
-    Room("", "")
+    Room("Horrible Chapel", "/Users/Ethan/syncbox/SQUEAK/sound/impulses/chapel.wav"),
+    Room("The All-Too-Bright Basement", "/Users/Ethan/syncbox/SQUEAK/sound/impulses/basement.wav"),
+    Room("Room 3", ""),
+    Room("Room 4", ""),
+    Room("Room 5", ""),
+    Room("Room 6", "")
 };
 
 #endif

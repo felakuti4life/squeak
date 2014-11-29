@@ -40,7 +40,6 @@ SoundSourceGen blender = SoundSourceGen(soundFPath1);
 SoundSourceGen squeak1 = SoundSourceGen(soundFPath2);
 SoundSourceGen squeak2 = SoundSourceGen(soundFPath3);
 SoundSourceGen mouseChirp = SoundSourceGen(mouseChirpFPath);
-//vector<AudioGen*> chain1, chain2, chain3;
 vector<AudioGen*> chain1 = {&blender};
 vector<AudioGen*> chain2 = {&squeak1};
 

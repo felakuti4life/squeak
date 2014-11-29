@@ -10,7 +10,7 @@
 #define __Squeak__Map__
 
 #include <stdio.h>
-#include "Model.h"
+#include "Room.h"
 #include <vector>
 class Map {
     
@@ -29,10 +29,12 @@ public:
     int getHeight();
     
     void fillRoomsWithThings();
-    
+    void setNeighbors();
     
 private:
     Table table;
+    
+    void testMap();
     
 };
 
