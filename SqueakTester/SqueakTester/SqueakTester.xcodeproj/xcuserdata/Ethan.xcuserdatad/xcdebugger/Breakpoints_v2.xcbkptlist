@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../squeakEngine/RoomGen.cpp"
-            timestampString = "438405131.076898"
+            timestampString = "439110290.652201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
             landmarkName = "RoomGen::prepareConvolvedAudio()"
             landmarkType = "5">
          </BreakpointContent>
@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../squeakEngine/RoomGen.cpp"
-            timestampString = "438405131.076898"
+            timestampString = "439110290.652201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "RoomGen::prepareConvolvedAudio()"
             landmarkType = "5">
          </BreakpointContent>
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../squeakEngine/RoomGen.cpp"
-            timestampString = "438405131.076898"
+            timestampString = "439110290.652201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
             landmarkName = "RoomGen::prepareConvolvedAudio()"
             landmarkType = "5">
          </BreakpointContent>
@@ -104,13 +104,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../squeakEngine/RoomGen.cpp"
-            timestampString = "438405131.076898"
+            timestampString = "439110290.652201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "RoomGen::synthesize2(float *input, float *output, int numframes)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SqueakTester/main.cpp"
+            timestampString = "439012898.749258"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

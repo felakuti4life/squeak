@@ -3,3 +3,5 @@ rbh thunder storm.wav     RHumphrie
 remix-of-24731-propthis-squeak3-variant-2    Timbre
 lightning_string.wav    artifact
 juicer.wav		Tomlija
+layered_gunshot-6.wav		xenonn
+arrowhit01.wav		yap-audio-production

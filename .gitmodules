@@ -1,0 +1,3 @@
+[submodule "squeakEngine"]
+	path = squeakEngine
+	url = git@github.com:felakuti4life/squeakEngine.git
